@@ -1,0 +1,24 @@
+<h5>Flores de corte</h5>
+
+<h6>Anadir una flor</h6>
+<form class="insert-flor-catalogo-floristeria">
+  <input id="entradatextonombre" placeholder="Nombre" type="text" />
+
+  <select name="generoEspecieFlorCorte" id="">
+    <option value="">Rosa (Rosa spp.)</option>
+    <option value="">Girasol (Helianthus)</option>
+  </select>
+
+  <select name="colorFLorCatalogo" id="">
+    <option value="">Rojo</option>
+    <option value="">Amarillo</option>
+    <option value="">Naranja</option>
+    <option value="">Verde</option>
+    <option value="">Rosado</option>
+  </select>
+
+  <input type="number" placeholder="Precio" min="0" step="0.01" />
+
+  <button>Submit</button>
+</form>
+<router-outlet />
