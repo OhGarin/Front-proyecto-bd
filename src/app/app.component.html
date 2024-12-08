@@ -1,14 +1,26 @@
-<h5>Flores de corte</h5>
+<h1>Mercado internacional de flores</h1>
 
-<h6>Anadir una flor</h6>
+<h3>Catalogo de floristeria</h3>
+
 <form class="insert-flor-catalogo-floristeria">
+
+  <h4>Para que floristeria desea ingresar una flor en el catalogo?</h4>
+
+  <select name="floristeria">
+    <option>Interflora</option>
+    <option>Floraqueen</option>
+  </select>
+
+  <h4>Datos de la flor de corte</h4>
+  <h5>Ingrese nombre propio</h5>
   <input id="entradatextonombre" placeholder="Nombre" type="text" />
 
-  <select name="generoEspecieFlorCorte" id="">
+  <h5>Cual es el tipo de flor de corte a registrar?</h5>
+  <select name="generoEspecieFlorCorte">
     <option value="">Rosa (Rosa spp.)</option>
     <option value="">Girasol (Helianthus)</option>
   </select>
-
+  <h5>De que color es la flor a registrar?</h5>
   <select name="colorFLorCatalogo" id="">
     <option value="">Rojo</option>
     <option value="">Amarillo</option>
@@ -17,8 +29,9 @@
     <option value="">Rosado</option>
   </select>
 
+  <h5>Precio inicial(unitario)</h5>
   <input type="number" placeholder="Precio" min="0" step="0.01" />
 
-  <button>Submit</button>
+  <button>Aceptar</button>
 </form>
 <router-outlet />
