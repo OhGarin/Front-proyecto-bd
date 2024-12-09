@@ -1,0 +1,63 @@
+.form-control {
+  width: 350px;
+  border-color: #a9a8a9;
+}
+
+.btn-success {
+  --bs-btn-bg: #afd095;
+  --bs-btn-color: #4d742f;
+  --bs-btn-border-color: var(--bs-btn-bg);
+  --bs-btn-border-radius: 15px;
+}
+
+.btn-primary {
+  --bs-btn-bg: #f1cfde;
+  --bs-btn-color: #00000083;
+  --bs-btn-hover-bg: #eb86b7;
+  --bs-btn-border-color: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+}
+
+h3 {
+  color: #d15c8d;
+  margin: 0;
+}
+
+.fondo-subtitulo {
+  background-color: #f1cfde;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4vh;
+}
+.formulario-catalogo-floristeria {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seccion-form {
+  padding-left: 10px;
+}
+
+.insert-flor-catalogo-floristeria {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 75%;
+}
+
+.boton-aceptar {
+  width: 150px;
+  align-self: flex-end;
+}
+
+h5 {
+  font-size: medium;
+  font-weight: normal;
+}
