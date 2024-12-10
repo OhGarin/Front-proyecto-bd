@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Floristeria, Productor, FlorCorte, Color } from './types';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, mergeMap, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -47,11 +47,21 @@ export class BackendService {
     idFloristeria: number,
     nombre: string,
     idFlorCorte: number,
-    codigoColor: string
+    codigoColor: string,
+    precioInicial: number,
+    tamanoTallo: number | null
   ): Observable<any> {
     const query = `INSERT INTO catalogos_floristerias (id_floristeria, nombre, id_flor_corte, codigo_color) VALUES
-      (${idFloristeria}, '${nombre}', ${idFlorCorte}, '${codigoColor}');`;
+      (${idFloristeria}, '${nombre}', ${idFlorCorte}, '${codigoColor}') RETURNING *;`;
     return this.request(query).pipe(
+      mergeMap((result: any) => {
+        const idCatalogo = result.rows[0].id_catalogo;
+        const queryPrecios = `INSERT INTO historicos_precio (id_floristeria, id_catalogo, fecha_inicio, precio_unitario, tamano_tallo, fecha_final) VALUES
+          (${idFloristeria}, ${idCatalogo}, NOW(), ${precioInicial}, ${
+          tamanoTallo ?? 'NULL'
+        }, NULL) RETURNING *;`;
+        return this.request(queryPrecios);
+      }),
       catchError((err, _) => {
         console.error(err);
         return [];

@@ -16,13 +16,19 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              Floristeria
+              @if (nombreFloristeria) {
+              {{ nombreFloristeria }}
+              } @else { Floristeria }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               @for (f of floristerias; track f.id_floristeria) {
               <button
                 ngbDropdownItem
-                (click)="setFloristeria(f.id_floristeria)"
+                type="button"
+                (click)="
+                  $event.stopPropagation();
+                  setFloristeria(f.id_floristeria, f.nombre_floristeria)
+                "
               >
                 {{ f.nombre_floristeria }}
               </button>
@@ -43,6 +49,8 @@
         id="entradatextonombre"
         placeholder="Nombre"
         type="text"
+        [(ngModel)]="nombre"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
@@ -57,11 +65,20 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              Especie de flor de corte
+              @if(nombreFlor) {
+              {{ nombreFlor }}
+              } @else { Especie de flor de corte }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               @for (f of flores; track f.id_flor_corte) {
-              <button ngbDropdownItem (click)="setFlor(f.id_flor_corte)">
+              <button
+                ngbDropdownItem
+                type="button"
+                (click)="
+                  $event.stopPropagation();
+                  setFlor(f.id_flor_corte, f.genero_especie)
+                "
+              >
                 {{ f.genero_especie }}
               </button>
               } @empty {
@@ -84,11 +101,20 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              Color
+              @if (nombreColor) {
+              {{ nombreColor }}
+              } @else { Color }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               @for (c of colores; track c.codigo_color) {
-              <button ngbDropdownItem (click)="setCodigoColor(c.codigo_color)">
+              <button
+                ngbDropdownItem
+                type="button"
+                (click)="
+                  $event.stopPropagation();
+                  setCodigoColor(c.codigo_color, c.nombre)
+                "
+              >
                 {{ c.nombre }}
               </button>
               } @empty {
@@ -101,16 +127,37 @@
     </div>
 
     <div class="seccion-form">
-      <h5>Precio inicial(unitario)</h5>
+      <h5>Precio inicial en euros (unitario)</h5>
       <input
         class="form-control"
         type="number"
         placeholder="Precio"
         min="0"
         step="0.01"
+        [(ngModel)]="precioInicial"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
-    <button type="button" class="btn btn-success boton-aceptar">Aceptar</button>
+    <div class="seccion-form">
+      <h5>Tamaño de tallo (centímetros)</h5>
+      <input
+        class="form-control"
+        type="number"
+        placeholder="Tamaño"
+        min="0"
+        step="0.01"
+        [(ngModel)]="tamanoTallo"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-success boton-aceptar"
+      (click)="agregarACatalogo()"
+    >
+      Aceptar
+    </button>
   </form>
 </div>
