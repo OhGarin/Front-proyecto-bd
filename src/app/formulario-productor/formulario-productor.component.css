@@ -61,3 +61,13 @@ h5 {
   font-size: medium;
   font-weight: normal;
 }
+
+.dos-columnas{
+  display: flex;
+  justify-content: space-between;
+}
+
+.columna{
+  display: flex;
+  flex-direction: column;
+}
