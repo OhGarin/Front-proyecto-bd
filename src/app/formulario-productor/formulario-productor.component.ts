@@ -13,6 +13,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './formulario-productor.component.css',
 })
 export class FormularioProductorComponent implements OnInit {
+  listaDeProductores: Productor[] = [];
+  listaDeColores: Color[] = [];
+  idProductorSeleccionado: number = 0;
+
+  nombreProductorSeleccionado: string = '';
+  codigoColorSeleccionado: string = '';
+  nombrePropioFlorNueva: string = '';
+  descripcionFlorNueva: string = '';
+  vbnFlorNueva:number = 0;
+
+
   constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {}
@@ -24,7 +35,7 @@ export class FormularioProductorComponent implements OnInit {
 
   setCodigoColor(codigo: string, nombre: string) {
     this.codigoColorSeleccionado = codigo;
-    this.nombreColorSeleccionado = nombre;
+    this.codigoColorSeleccionado = nombre;
   }
 
 }

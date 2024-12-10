@@ -22,19 +22,20 @@
                   Productor
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  @for (f of listaDeProductores; track f.id_productor) {
+                  @for (f of listaDeProductores; track f.id_prod) {
                   <button
                   ngbDropdownItem
                   type="button"
                   (click)="
                     $event.stopPropagation();
-                    setProductor(f.id_productor, f.nombre_productor)
+                    setProductor(f.id_prod, f.nombre_prod)
                   "
                 >
-                  {{ f.nombre_productor }}
+                  {{ f.nombre_prod }}
                   </button>
                   } @empty {
                   <button ngbDropdownItem [disabled]="true">Cargando...</button>
+                  }
                 </div>
               </div>
             </div>
@@ -51,7 +52,7 @@
             class="form-control"
             id="entradatextonombre"
             placeholder="VBN"
-            type="text"
+            type="number"
             [(ngModel)]="vbnFlorNueva"
             [ngModelOptions]="{ standalone: true }"
           />
@@ -90,8 +91,8 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                  @if (nombreColorSeleccionado) {
-                  {{ nombreColorSeleccionado }}
+                  @if (codigoColorSeleccionado) {
+                  {{ codigoColorSeleccionado }}
                   } @else { Color }
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
