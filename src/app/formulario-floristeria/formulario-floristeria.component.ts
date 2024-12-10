@@ -14,59 +14,61 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './formulario-floristeria.component.css',
 })
 export class FormularioFloristeriaComponent implements OnInit {
-  floristerias: Floristeria[] = [];
-  flores: FlorCorte[] = [];
-  colores: Color[] = [];
+  listaDeFloristerias: Floristeria[] = [];
+  listaDeFlores: FlorCorte[] = [];
+  listaDeColores: Color[] = [];
 
-  idFlor: number = 0;
-  idFloristeria: number = 0;
-  nombre: string = '';
-  codigoColor: string = '';
-  precioInicial: number = 0;
-  tamanoTallo: number | null = null;
+  idFlorSeleccionada: number = 0;
+  idFloristeriaSeleccionada: number = 0;
+  nombreFlorNueva: string = '';
+  codigoColorSeleccionado: string = '';
+  precioInicialFlorNueva: number = 0;
+  tamanoTalloFlorNueva: number | null = null;
 
-  nombreFloristeria: string = '';
-  nombreFlor: string = '';
-  nombreColor: string = '';
+  nombreFloristeriaSeleccionada: string = '';
+  especieFlorSeleccionada: string = '';
+  nombreColorSeleccionado: string = '';
 
-  constructor(private backendService: BackendService) {}
+  constructor(private backend: BackendService) {}
 
   ngOnInit() {
-    this.backendService.obtenerFloristerias().subscribe((floristerias) => {
-      this.floristerias = floristerias;
+    this.backend
+      .obtenerFloristerias()
+      .subscribe((listaDeFloristeriasBackend) => {
+        this.listaDeFloristerias = listaDeFloristeriasBackend;
+      });
+    this.backend.obtenerFloresDeCorte().subscribe((listaDeFloresBackend) => {
+      this.listaDeFlores = listaDeFloresBackend;
     });
-    this.backendService.obtenerFloresDeCorte().subscribe((flores) => {
-      this.flores = flores;
-    });
-    this.backendService.obtenerColores().subscribe((colores) => {
-      this.colores = colores;
+    this.backend.obtenerColores().subscribe((listaDeColoresBackend) => {
+      this.listaDeColores = listaDeColoresBackend;
     });
   }
 
   setFloristeria(id: number, nombre: string) {
-    this.idFloristeria = id;
-    this.nombreFloristeria = nombre;
+    this.idFloristeriaSeleccionada = id;
+    this.nombreFloristeriaSeleccionada = nombre;
   }
 
-  setFlor(id: number, nombre: string) {
-    this.idFlor = id;
-    this.nombreFlor = nombre;
+  setFlor(id: number, especie: string) {
+    this.idFlorSeleccionada = id;
+    this.especieFlorSeleccionada = especie;
   }
 
   setCodigoColor(codigo: string, nombre: string) {
-    this.codigoColor = codigo;
-    this.nombreColor = nombre;
+    this.codigoColorSeleccionado = codigo;
+    this.nombreColorSeleccionado = nombre;
   }
 
   agregarACatalogo() {
-    this.backendService
+    this.backend
       .agregarACatalogoFloristeria(
-        this.idFloristeria,
-        this.nombre,
-        this.idFlor,
-        this.codigoColor,
-        this.precioInicial,
-        this.tamanoTallo
+        this.idFloristeriaSeleccionada,
+        this.nombreFlorNueva,
+        this.idFlorSeleccionada,
+        this.codigoColorSeleccionado,
+        this.precioInicialFlorNueva,
+        this.tamanoTalloFlorNueva
       )
       .pipe(
         catchError((err, _) => {
@@ -75,11 +77,11 @@ export class FormularioFloristeriaComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.idFlor = 0;
-        this.idFloristeria = 0;
-        this.nombre = '';
-        this.codigoColor = '';
-        this.precioInicial = 0;
+        this.idFlorSeleccionada = 0;
+        this.idFloristeriaSeleccionada = 0;
+        this.nombreColorSeleccionado = '';
+        this.codigoColorSeleccionado = '';
+        this.precioInicialFlorNueva = 0;
       });
   }
 }
