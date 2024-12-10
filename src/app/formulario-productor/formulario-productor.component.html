@@ -16,12 +16,25 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
+                @if (nombreProductorSeleccionado) {
+                  {{ nombreProductorSeleccionado }}
+                  } @else { Productor }
                   Productor
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem>Interflora</button>
-                  <button ngbDropdownItem>Floraqueen</button>
-                  <button ngbDropdownItem>Something else is here</button>
+                  @for (f of listaDeProductores; track f.id_productor) {
+                  <button
+                  ngbDropdownItem
+                  type="button"
+                  (click)="
+                    $event.stopPropagation();
+                    setProductor(f.id_productor, f.nombre_productor)
+                  "
+                >
+                  {{ f.nombre_productor }}
+                  </button>
+                  } @empty {
+                  <button ngbDropdownItem [disabled]="true">Cargando...</button>
                 </div>
               </div>
             </div>
@@ -39,6 +52,8 @@
             id="entradatextonombre"
             placeholder="VBN"
             type="text"
+            [(ngModel)]="vbnFlorNueva"
+            [ngModelOptions]="{ standalone: true }"
           />
         </div>
         <div class="seccion-form">
@@ -48,6 +63,8 @@
             id="entradatextonombre"
             placeholder="Nombre propio"
             type="text"
+            [(ngModel)]="nombrePropioFlorNueva"
+            [ngModelOptions]="{ standalone: true }"
           />
         </div>
         <div class="seccion-form">
@@ -56,6 +73,8 @@
             class="form-control"
             id="entradatextonombre"
             type="text"
+            [(ngModel)]="descripcionFlorNueva"
+            [ngModelOptions]="{ standalone: true }"
           />
         </div>
       </div>
@@ -71,14 +90,25 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                  Color
+                  @if (nombreColorSeleccionado) {
+                  {{ nombreColorSeleccionado }}
+                  } @else { Color }
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem>Rojo</button>
-                  <button ngbDropdownItem>Amarillo</button>
-                  <button ngbDropdownItem>Naranja</button>
-                  <button ngbDropdownItem>Verde</button>
-                  <button ngbDropdownItem>Rosado</button>
+                 @for (c of listaDeColores; track c.codigo_color) {
+                  <button
+                    ngbDropdownItem
+                    type="button"
+                    (click)="
+                      $event.stopPropagation();
+                      setCodigoColor(c.codigo_color, c.nombre)
+                    "
+                  >
+                    {{ c.nombre }}
+                  </button>
+                  } @empty {
+                  <button ngbDropdownItem [disabled]="true">Cargando...</button>
+                  }
                 </div>
               </div>
             </div>
@@ -95,7 +125,7 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                  Especie de la flor de corte
+                  Tipo de flor de corte
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                   <button ngbDropdownItem>Rosa (Rosa spp.)</button>
