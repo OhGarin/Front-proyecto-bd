@@ -8,6 +8,7 @@
   --bs-btn-color: #4d742f;
   --bs-btn-border-color: var(--bs-btn-bg);
   --bs-btn-border-radius: 15px;
+  margin-bottom: 5vh;
 }
 
 .btn-primary {

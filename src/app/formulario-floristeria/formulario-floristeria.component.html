@@ -16,12 +16,12 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              @if (nombreFloristeria) {
-              {{ nombreFloristeria }}
+              @if (nombreFloristeriaSeleccionada) {
+              {{ nombreFloristeriaSeleccionada }}
               } @else { Floristeria }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              @for (f of floristerias; track f.id_floristeria) {
+              @for (f of listaDeFloristerias; track f.id_floristeria) {
               <button
                 ngbDropdownItem
                 type="button"
@@ -49,7 +49,7 @@
         id="entradatextonombre"
         placeholder="Nombre"
         type="text"
-        [(ngModel)]="nombre"
+        [(ngModel)]="nombreFlorNueva"
         [ngModelOptions]="{ standalone: true }"
       />
     </div>
@@ -65,12 +65,12 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              @if(nombreFlor) {
-              {{ nombreFlor }}
+              @if(especieFlorSeleccionada) {
+              {{ especieFlorSeleccionada }}
               } @else { Especie de flor de corte }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              @for (f of flores; track f.id_flor_corte) {
+              @for (f of listaDeFlores; track f.id_flor_corte) {
               <button
                 ngbDropdownItem
                 type="button"
@@ -101,12 +101,12 @@
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              @if (nombreColor) {
-              {{ nombreColor }}
+              @if (nombreColorSeleccionado) {
+              {{ nombreColorSeleccionado }}
               } @else { Color }
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              @for (c of colores; track c.codigo_color) {
+              @for (c of listaDeColores; track c.codigo_color) {
               <button
                 ngbDropdownItem
                 type="button"
@@ -134,7 +134,7 @@
         placeholder="Precio"
         min="0"
         step="0.01"
-        [(ngModel)]="precioInicial"
+        [(ngModel)]="precioInicialFlorNueva"
         [ngModelOptions]="{ standalone: true }"
       />
     </div>
@@ -147,7 +147,7 @@
         placeholder="Tamaño"
         min="0"
         step="0.01"
-        [(ngModel)]="tamanoTallo"
+        [(ngModel)]="tamanoTalloFlorNueva"
         [ngModelOptions]="{ standalone: true }"
       />
     </div>
