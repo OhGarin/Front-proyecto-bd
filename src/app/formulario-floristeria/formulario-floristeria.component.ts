@@ -85,6 +85,7 @@ export class FormularioFloristeriaComponent implements OnInit {
         this.nombreColorSeleccionado = '';
         this.nombreFloristeriaSeleccionada = '';
         this.especieFlorSeleccionada = '';
+        this.nombreFlorNueva = '';
       });
   }
 }

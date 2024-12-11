@@ -6,45 +6,44 @@
   <form class="insert-flor-catalogo-floristeria">
     <h4>Datos iniciales</h4>
     <div>
-          <h5>¿Para qué productor desea ingresar una flor en el catálogo?</h5>
-          <div class="row">
-            <div class="col">
-              <div ngbDropdown class="d-inline-block">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  id="dropdownBasic1"
-                  ngbDropdownToggle
-                >
-                @if (nombreProductorSeleccionado) {
-                  {{ nombreProductorSeleccionado }}
-                  } @else { Productor }
-                  Productor
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  @for (f of listaDeProductores; track f.id_prod) {
-                  <button
-                  ngbDropdownItem
-                  type="button"
-                  (click)="
-                    $event.stopPropagation();
-                    setProductor(f.id_prod, f.nombre_prod)
-                  "
-                >
-                  {{ f.nombre_prod }}
-                  </button>
-                  } @empty {
-                  <button ngbDropdownItem [disabled]="true">Cargando...</button>
-                  }
-                </div>
-              </div>
+      <h5>¿Para qué productor desea ingresar una flor en el catálogo?</h5>
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              @if (nombreProductorSeleccionado) {
+              {{ nombreProductorSeleccionado }}
+              } @else { Productor }
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              @for (f of listaDeProductores; track f.id_prod) {
+              <button
+                ngbDropdownItem
+                type="button"
+                (click)="
+                  $event.stopPropagation();
+                  setProductor(f.id_prod, f.nombre_prod)
+                "
+              >
+                {{ f.nombre_prod }}
+              </button>
+              } @empty {
+              <button ngbDropdownItem [disabled]="true">Cargando...</button>
+              }
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-      <h4>Datos de la flor de corte</h4>
+    <h4>Datos de la flor de corte</h4>
 
-      <div class="dos-columnas">
+    <div class="dos-columnas">
       <div class="columna">
         <div class="seccion-form">
           <h5>Ingrese el VBN único // VBN generado</h5>
@@ -91,12 +90,12 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                  @if (codigoColorSeleccionado) {
-                  {{ codigoColorSeleccionado }}
+                  @if (nombreColorSeleccionado) {
+                  {{ nombreColorSeleccionado }}
                   } @else { Color }
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                 @for (c of listaDeColores; track c.codigo_color) {
+                  @for (c of listaDeColores; track c.codigo_color) {
                   <button
                     ngbDropdownItem
                     type="button"
@@ -126,9 +125,9 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                @if(especieFlorSeleccionada) {
-                {{ especieFlorSeleccionada }}
-                } @else { Tipo de flor de corte }
+                  @if(especieFlorSeleccionada) {
+                  {{ especieFlorSeleccionada }}
+                  } @else { Tipo de flor de corte }
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                   @for (f of listaDeFlores; track f.id_flor_corte) {
@@ -145,7 +144,7 @@
                   } @empty {
                   <button ngbDropdownItem [disabled]="true">Cargando...</button>
                   }
-            </div>
+                </div>
               </div>
             </div>
           </div>
@@ -153,6 +152,12 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-success boton-aceptar">Aceptar</button>
+    <button
+      type="button"
+      (click)="agregarACatalogo()"
+      class="btn btn-success boton-aceptar"
+    >
+      Aceptar
+    </button>
   </form>
 </div>
