@@ -27,13 +27,13 @@ export class FormularioProductorComponent implements OnInit {
   vbnFlorNueva:number = 0;
 
 
-  constructor(private backendService: BackendService) {}
+  constructor(private backend: BackendService) {}
 
   ngOnInit(): void {
     this.backend
-      .obtenerFloristerias()
-      .subscribe((listaDeFloristeriasBackend) => {
-        this.listaDeFloristerias = listaDeFloristeriasBackend;
+      .obtenerProductores()
+      .subscribe((listaDeProductoresBackend) => {
+        this.listaDeProductores = listaDeProductoresBackend;
       });
     this.backend.obtenerFloresDeCorte().subscribe((listaDeFloresBackend) => {
       this.listaDeFlores = listaDeFloresBackend;
