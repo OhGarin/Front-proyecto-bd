@@ -126,12 +126,26 @@
                   id="dropdownBasic1"
                   ngbDropdownToggle
                 >
-                  Tipo de flor de corte
+                @if(especieFlorSeleccionada) {
+                {{ especieFlorSeleccionada }}
+                } @else { Tipo de flor de corte }
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem>Rosa (Rosa spp.)</button>
-                  <button ngbDropdownItem>Girasol (Helianthus)</button>
-                </div>
+                  @for (f of listaDeFlores; track f.id_flor_corte) {
+                  <button
+                    ngbDropdownItem
+                    type="button"
+                    (click)="
+                      $event.stopPropagation();
+                      setFlor(f.id_flor_corte, f.genero_especie)
+                    "
+                  >
+                    {{ f.genero_especie }}
+                  </button>
+                  } @empty {
+                  <button ngbDropdownItem [disabled]="true">Cargando...</button>
+                  }
+            </div>
               </div>
             </div>
           </div>

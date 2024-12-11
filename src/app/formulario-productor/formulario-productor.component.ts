@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { BackendModule } from '../backend/backend.module';
-import { Color, Productor } from '../backend/types';
+import { Color, Productor, FlorCorte } from '../backend/types';
 import { BackendService } from '../backend/backend.service';
 import { FormsModule } from '@angular/forms';
 
@@ -15,12 +15,15 @@ import { FormsModule } from '@angular/forms';
 export class FormularioProductorComponent implements OnInit {
   listaDeProductores: Productor[] = [];
   listaDeColores: Color[] = [];
+  listaDeFlores: FlorCorte[] = [];
   idProductorSeleccionado: number = 0;
 
   nombreProductorSeleccionado: string = '';
   codigoColorSeleccionado: string = '';
   nombrePropioFlorNueva: string = '';
   descripcionFlorNueva: string = '';
+  idFlorSeleccionada: number = 0;
+  especieFlorSeleccionada: string = '';
   vbnFlorNueva:number = 0;
 
 
@@ -36,6 +39,11 @@ export class FormularioProductorComponent implements OnInit {
   setCodigoColor(codigo: string, nombre: string) {
     this.codigoColorSeleccionado = codigo;
     this.codigoColorSeleccionado = nombre;
+  }
+
+  setFlor(id: number, especie: string) {
+    this.idFlorSeleccionada = id;
+    this.especieFlorSeleccionada = especie;
   }
 
 }
