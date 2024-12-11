@@ -29,7 +29,19 @@ export class FormularioProductorComponent implements OnInit {
 
   constructor(private backendService: BackendService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.backend
+      .obtenerFloristerias()
+      .subscribe((listaDeFloristeriasBackend) => {
+        this.listaDeFloristerias = listaDeFloristeriasBackend;
+      });
+    this.backend.obtenerFloresDeCorte().subscribe((listaDeFloresBackend) => {
+      this.listaDeFlores = listaDeFloresBackend;
+    });
+    this.backend.obtenerColores().subscribe((listaDeColoresBackend) => {
+      this.listaDeColores = listaDeColoresBackend;
+    });
+  }
 
   setProductor(id: number, nombre: string) {
     this.idProductorSeleccionado = id;
