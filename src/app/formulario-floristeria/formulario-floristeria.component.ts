@@ -1,33 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, inject, OnInit } from '@angular/core';
+import { NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../backend/backend.service';
 import { Color, FlorCorte, Floristeria } from '../backend/types';
 import { catchError } from 'rxjs';
 import { BackendModule } from '../backend/backend.module';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-floristeria',
   standalone: true,
-  imports: [NgbDropdownModule, BackendModule, FormsModule],
+  imports: [
+    NgbDropdownModule,
+    NgbAlertModule,
+    BackendModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './formulario-floristeria.component.html',
   styleUrl: './formulario-floristeria.component.css',
 })
 export class FormularioFloristeriaComponent implements OnInit {
+  private formBuilder = inject(FormBuilder);
+  exito: boolean = false;
   listaDeFloristerias: Floristeria[] = [];
   listaDeFlores: FlorCorte[] = [];
   listaDeColores: Color[] = [];
 
-  idFlorSeleccionada: number = 0;
-  idFloristeriaSeleccionada: number = 0;
-  nombreFlorNueva: string = '';
-  codigoColorSeleccionado: string = '';
-  precioInicialFlorNueva: number = 0;
-  tamanoTalloFlorNueva: number | null = null;
-
   nombreFloristeriaSeleccionada: string = '';
   especieFlorSeleccionada: string = '';
   nombreColorSeleccionado: string = '';
+
+  formFloristeria = this.formBuilder.group({
+    idFlorSeleccionada: [0, Validators.required],
+    idFloristeriaSeleccionada: [0, Validators.required],
+    nombreFlorNueva: [
+      '',
+      Validators.compose([Validators.required, Validators.maxLength(40)]),
+    ],
+    codigoColorSeleccionado: [
+      '',
+      Validators.compose([Validators.required, Validators.maxLength(6)]),
+    ],
+    precioInicialFlorNueva: [
+      0,
+      Validators.compose([
+        Validators.required,
+        Validators.min(1),
+        Validators.max(999.99),
+      ]),
+    ],
+    tamanoTalloFlorNueva: [
+      null,
+      Validators.compose([Validators.min(0), Validators.max(999.99)]),
+    ],
+  });
 
   constructor(private backend: BackendService) {}
 
@@ -46,29 +77,36 @@ export class FormularioFloristeriaComponent implements OnInit {
   }
 
   setFloristeria(id: number, nombre: string) {
-    this.idFloristeriaSeleccionada = id;
+    this.formFloristeria.controls.idFloristeriaSeleccionada.setValue(id);
     this.nombreFloristeriaSeleccionada = nombre;
   }
 
   setFlor(id: number, especie: string) {
-    this.idFlorSeleccionada = id;
+    this.formFloristeria.controls.idFlorSeleccionada.setValue(id);
     this.especieFlorSeleccionada = especie;
   }
 
   setCodigoColor(codigo: string, nombre: string) {
-    this.codigoColorSeleccionado = codigo;
+    this.formFloristeria.controls.codigoColorSeleccionado.setValue(codigo);
     this.nombreColorSeleccionado = nombre;
   }
 
+  closeAlert() {
+    this.exito = false;
+  }
+
   agregarACatalogo() {
+    const formValue = this.formFloristeria.value;
     this.backend
       .agregarACatalogoFloristeria(
-        this.idFloristeriaSeleccionada,
-        this.nombreFlorNueva,
-        this.idFlorSeleccionada,
-        this.codigoColorSeleccionado,
-        this.precioInicialFlorNueva,
-        this.tamanoTalloFlorNueva
+        formValue.idFloristeriaSeleccionada!,
+        formValue.nombreFlorNueva!,
+        formValue.idFlorSeleccionada!,
+        formValue.codigoColorSeleccionado!,
+        formValue.precioInicialFlorNueva!,
+        formValue.tamanoTalloFlorNueva && formValue.tamanoTalloFlorNueva !== 0
+          ? formValue.tamanoTalloFlorNueva
+          : null
       )
       .pipe(
         catchError((err, _) => {
@@ -77,15 +115,8 @@ export class FormularioFloristeriaComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.idFlorSeleccionada = 0;
-        this.idFloristeriaSeleccionada = 0;
-        this.nombreColorSeleccionado = '';
-        this.codigoColorSeleccionado = '';
-        this.precioInicialFlorNueva = 0;
-        this.nombreColorSeleccionado = '';
-        this.nombreFloristeriaSeleccionada = '';
-        this.especieFlorSeleccionada = '';
-        this.nombreFlorNueva = '';
+        this.formFloristeria.reset();
+        this.exito = true;
       });
   }
 }

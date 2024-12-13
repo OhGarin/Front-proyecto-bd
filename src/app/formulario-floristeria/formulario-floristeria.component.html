@@ -3,7 +3,11 @@
     <h3>Catalogo de floristeria</h3>
   </div>
 
-  <form class="insert-flor-catalogo-floristeria">
+  <form
+    class="insert-flor-catalogo-floristeria"
+    [formGroup]="formFloristeria"
+    (ngSubmit)="agregarACatalogo()"
+  >
     <h4>Datos iniciales</h4>
     <div>
       <h5>¿Para cuál floristeria desea ingresar una flor en el catálogo?</h5>
@@ -49,8 +53,8 @@
         id="entradatextonombre"
         placeholder="Nombre"
         type="text"
-        [(ngModel)]="nombreFlorNueva"
-        [ngModelOptions]="{ standalone: true }"
+        maxlength="40"
+        formControlName="nombreFlorNueva"
       />
     </div>
 
@@ -134,8 +138,8 @@
         placeholder="Precio"
         min="0"
         step="0.01"
-        [(ngModel)]="precioInicialFlorNueva"
-        [ngModelOptions]="{ standalone: true }"
+        max="999.99"
+        formControlName="precioInicialFlorNueva"
       />
     </div>
 
@@ -147,15 +151,23 @@
         placeholder="Tamaño"
         min="0"
         step="0.01"
-        [(ngModel)]="tamanoTalloFlorNueva"
-        [ngModelOptions]="{ standalone: true }"
+        max="999.99"
+        formControlName="tamanoTalloFlorNueva"
       />
     </div>
 
+    @if (exito) {
+    <div style="width: 90%">
+      <ngb-alert type="success" (closed)="closeAlert()"
+        >¡Flor registrada con éxito!</ngb-alert
+      >
+    </div>
+    }
+
     <button
-      type="button"
+      type="submit"
       class="btn btn-success boton-aceptar"
-      (click)="agregarACatalogo()"
+      [disabled]="!formFloristeria.valid"
     >
       Aceptar
     </button>
