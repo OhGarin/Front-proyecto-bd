@@ -3,7 +3,11 @@
     <h3>Catálogo de productor</h3>
   </div>
 
-  <form class="insert-flor-catalogo-floristeria">
+  <form
+    class="insert-flor-catalogo-floristeria"
+    [formGroup]="formProductor"
+    (ngSubmit)="agregarACatalogo()"
+  >
     <h4>Datos iniciales</h4>
     <div>
       <h5>¿Para qué productor desea ingresar una flor en el catálogo?</h5>
@@ -52,8 +56,7 @@
             id="entradatextonombre"
             placeholder="VBN"
             type="number"
-            [(ngModel)]="vbnFlorNueva"
-            [ngModelOptions]="{ standalone: true }"
+            formControlName="vbnFlorNueva"
           />
         </div>
         <div class="seccion-form">
@@ -63,8 +66,7 @@
             id="entradatextonombre"
             placeholder="Nombre propio"
             type="text"
-            [(ngModel)]="nombrePropioFlorNueva"
-            [ngModelOptions]="{ standalone: true }"
+            formControlName="nombrePropioFlorNueva"
           />
         </div>
         <div class="seccion-form">
@@ -73,8 +75,7 @@
             class="form-control"
             id="entradatextonombre"
             type="text"
-            [(ngModel)]="descripcionFlorNueva"
-            [ngModelOptions]="{ standalone: true }"
+            formControlName="descripcionFlorNueva"
           />
         </div>
       </div>
@@ -152,10 +153,18 @@
       </div>
     </div>
 
+    @if (exito) {
+    <div style="width: 90%">
+      <ngb-alert type="success" (closed)="closeAlert()"
+        >¡Flor registrada con éxito!</ngb-alert
+      >
+    </div>
+    }
+
     <button
-      type="button"
-      (click)="agregarACatalogo()"
+      type="submit"
       class="btn btn-success boton-aceptar"
+      [disabled]="!formProductor.valid"
     >
       Aceptar
     </button>
